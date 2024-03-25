@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+void findMinMax(int arr[], int size, int M, int N, int *max, int *min) {
+    int i, j, temp;
+
+    // Sort the array in ascending order using bubble sort
+    for (i = 0; i < size - 1; i++) {
+        for (j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Swap elements
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    // Handle illegal inputs
+    if (M <= 0 || N <= 0 || M > size || N > size) {
+        *max = -1; // Mark max as -1 to indicate illegal input
+        *min = -1; // Mark min as -1 to indicate illegal input
+        return;
+    }
+
+    // Find M-th maximum and N-th minimum numbers
+    *max = arr[size - M];
+    *min = arr[N - 1];
+}
+
+int main() {
+    int arr[100]; // Assuming maximum array size is 100
+    int size, M, N, max, min;
+
+    // Input array size
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+
+    // Input array elements
+    printf("Enter the elements of the array: ");
+    for (int i = 0; i < size; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input M and N
+    printf("Enter the value of M: ");
+    scanf("%d", &M);
+    printf("Enter the value of N: ");
+    scanf("%d", &N);
+
+    // Find M-th maximum and N-th minimum numbers
+    findMinMax(arr, size, M, N, &max, &min);
+
+    // Output the result
+    if (max == -1 && min == -1) {
+        printf("Illegal input\n");
+    } else {
+        printf("Sum: %d, Difference: %d\n", max + min, max - min);
+    }
+
+    return 0;
+}
